@@ -4,6 +4,7 @@
   "description": "Server for Memo",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon app.js",
     "test": "mocha"
   },
   "repository": {
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/mikebcbc/memo-server#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
     "mongoose": "^4.13.4"
   },
