@@ -1,0 +1,11 @@
+language: node_js
+node_js: node
+services:
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: RZGbZD2ZTyjd3Yq9rX9WDp7pafstyNBgIth18hysO34CeKdK4bZvsXLNv9arzVxIzZVDl0HewBsgFRxBW1+Q/4rB9k4xnbv56wb5F6v+KyYuMA0hhM3imHs4eCmRbtTeoE95O/sdIKnicmc0vXmMkmy/rJpiQ6bLP/Znn2etg6Fu/ScOX8mQxrYAOsVZD+FsEY2GhviOuw2ASy0USpr7fPjR+oT8xmqeyYVbBIREAWjIqpOx/RDh7WIG/75/U1ZiHsK9EsxgizBEx0jy7Qna546E0BTjyCv82OQUx7uzILK0AO+8vgZOWU3TnD76QTaVblqRp+XU5O+w7OAmymgJppSfR187owFZDM5S3WjValVf57nCL0nEbYDfpvWitR7EYcfwIugevxGuTFvlg0eKiOMRNKMaMkwMC4JHwVNiGOiOPgP1gUW5719Xv1EvySwtgOzdd8u/NEajLVRuhQuSfnreiPYs+5sxmVpgty7j7+Dz4j+30pmC29783iDkDc27K8WXZC8O1ln4j5GLT4uM+QFKlJcI3NMRrqEGB8tDeqdks7wBHbfF1lDhmngvhfYvjkOUBvD83zuSqSjt1cBoChbhmDdEq3ptROOQf9KQp+70MZu4ss2bOx7kwrWY9AbbGu8yHBm4hJiJRj7Yb50vHGa2KavsNwKfrXTooU9osGU=
+  app: secret-island-23486
+  on:
+    repo: mikebcbc/memo-server
