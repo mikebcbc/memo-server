@@ -1,0 +1,19 @@
+{
+  "name": "memo-server",
+  "version": "1.0.0",
+  "description": "Server for Memo",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikebcbc/memo-server.git"
+  },
+  "author": "Michael Constantino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikebcbc/memo-server/issues"
+  },
+  "homepage": "https://github.com/mikebcbc/memo-server#readme"
+}
