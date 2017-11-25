@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
+const {Content} = require('./contents');
+
 const userSchema = mongoose.Schema({
 	username: {type: String, required: true},
 	content: [{
-		contentId: Number,
+		contentId: {type: mongoose.Schema.Types.ObjectId, ref: 'Content'},
 		time: Number,
 		completed: Boolean
 	}]
