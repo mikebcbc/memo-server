@@ -2,18 +2,21 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const passport = require('passport');
 
 const {User} = require('../models/users');
 
-/* GET users listing. */
-router.get('/', (req, res) => {
-  User.find().populate({
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+/* GET user content/info */
+router.get('/', jwtAuth, (req, res) => {
+  User.findOne({username: req.user.username}).populate({
   	path: 'content.contentId',
   	populate: {
-  		path: 'related_topics'
+  		path: 'related_topic'
   	}
   }).then(user => {
-  	res.json(user);
+  	res.json(user.apiRepr());
   });
 });
 
