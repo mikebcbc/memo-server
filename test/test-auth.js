@@ -41,6 +41,15 @@ describe('Authentication Tests', function() {
 	})
 
 	describe('POST /login', function() {
+		it('should reject requests w/o body', function() {
+			return chai
+				.request(app)
+				.post('/auth/login')
+				.then(() => expect.fail(null, null, 'Request shouldnt complete'))
+				.catch(err => {
+					expect(err.response).to.have.status(400);
+				})
+		})
 		it('should return a valid jwt', function() {
 			return chai
 				.request(app)
