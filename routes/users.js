@@ -54,4 +54,27 @@ router.post('/register', jsonParser, (req, res) => {
     });
 });
 
+/* POST new user-specific content */
+router.post('/content', [jsonParser, jwtAuth], (req, res) => {
+  User.findOne({username: req.user.username})
+  .then(user => {
+  	const doesMatch = user.content.findIndex((content) => {
+  		return content.contentId == req.body.contentId;
+  	});
+  	console.log(doesMatch);
+  	if (doesMatch != -1) { // 0 isn't truthy, how to work around this?
+  		user.content[doesMatch].time += req.body.time;
+  		user.save();
+  	} else {
+  		const newContent = { // how to catch error if contentId is bad?
+  			"contentId": req.body.contentId,
+  			"time": req.body.time
+  		}
+  		user.content.push(newContent);
+  		user.save();
+  	}
+  	res.json(user.apiRepr());
+  });
+});
+
 module.exports = router;
