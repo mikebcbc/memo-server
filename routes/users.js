@@ -54,6 +54,14 @@ router.post('/register', jsonParser, (req, res) => {
     });
 });
 
+router.get('/completed-content', jwtAuth, (req, res) => { // Do I need to populate the content? Will my client have this?
+  User.findOne({username: req.user.username})
+  .then(user => {
+    const completed = user.content.filter((content) => content.completed);
+    res.send(completed);
+  })
+})
+
 /* POST new user-specific content */
 router.post('/content', [jsonParser, jwtAuth], (req, res) => {
   User.findOne({username: req.user.username})
