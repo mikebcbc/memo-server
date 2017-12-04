@@ -54,6 +54,7 @@ router.post('/register', jsonParser, (req, res) => {
     });
 });
 
+/* GET completed content */
 router.get('/completed-content', jwtAuth, (req, res) => {
   User.findOne({username: req.user.username}).populate({
     path: 'content.contentId',

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 const createToken = (user) => {
+	console.log(user);
 	return jwt.sign({user}, process.env.JWT_SECRET, {
 		subject: user.username,
 		expiresIn: 3600,
