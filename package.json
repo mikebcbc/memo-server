@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "DATABASE_URL=mongodb://localhost/memo-test mocha ./test"
+    "test": "DATABASE_URL=mongodb://localhost/memo-test mocha ./test --exit"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
