@@ -1,4 +1,3 @@
-global.DATABASE_URL = 'mongodb://localhost/memo-test';
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
@@ -7,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const {User} = require('../models/users');
 
 const app = require('../bin/www');
-const expect = chai.expect; // Difference between expect and should?
+const expect = chai.expect;
 chai.use(chaiHttp);
 
 function destroyDb() {
@@ -18,17 +17,14 @@ const username = 'testing';
 const password = 'testing';
 
 describe('Authentication Tests', function() {
-	beforeEach(function(done) {
-		User.hashPassword(password)
+	beforeEach(function() {
+		return User.hashPassword(password)
 		.then((password) => {
 			return User
 				.create({
 					username,
 					password
 				})
-		})
-		.then(() => {
-			done(); // Remind me what this does again?
 		})
 	})
 
