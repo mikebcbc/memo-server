@@ -5,7 +5,6 @@ const sassMiddleware = require('node-sass-middleware');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
-const index = require('./routes/index');
 const stats = require('./routes/stats');
 const users = require('./routes/users');
 const auth = require('./routes/auth');

@@ -54,8 +54,13 @@ router.post('/register', jsonParser, (req, res) => {
     });
 });
 
-router.get('/completed-content', jwtAuth, (req, res) => { // Do I need to populate the content? Will my client have this?
-  User.findOne({username: req.user.username})
+router.get('/completed-content', jwtAuth, (req, res) => {
+  User.findOne({username: req.user.username}).populate({
+    path: 'content.contentId',
+    populate: {
+      path: 'related_topic'
+    }
+  })
   .then(user => {
     const completed = user.content.filter((content) => content.completed);
     res.send(completed);
@@ -69,20 +74,22 @@ router.post('/content', [jsonParser, jwtAuth], (req, res) => {
   	const doesMatch = user.content.findIndex((content) => {
   		return content.contentId == req.body.contentId;
   	});
-  	console.log(doesMatch);
-  	if (doesMatch != -1) { // 0 isn't truthy, how to work around this?
+  	if (doesMatch != -1) {
   		user.content[doesMatch].time += req.body.time;
-  		user.save();
   	} else {
-  		const newContent = { // how to catch error if contentId is bad?
+  		const newContent = {
   			"contentId": req.body.contentId,
   			"time": req.body.time
   		}
   		user.content.push(newContent);
-  		user.save();
   	}
-  	res.json(user.apiRepr());
-  });
+    user.save(function(err, user) {
+      if (err) {
+        return res.status(400).send(`Bad request: ${err.message}`);
+      }
+      res.json(user.apiRepr());
+    })
+  })
 });
 
 module.exports = router;

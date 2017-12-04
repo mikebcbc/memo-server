@@ -25,7 +25,6 @@ var server = http.createServer(app);
 /**
 * Connect to DB and listen on port.
 */
-
 mongoose.connect(process.env.DATABASE_URL || 'mongodb://localhost/memo', err => {
   if(err) {
     console.log(err);
@@ -100,3 +99,5 @@ function onListening() {
     : 'port ' + addr.port;
   console.log('Listening on ' + bind);
 }
+
+module.exports = server;
