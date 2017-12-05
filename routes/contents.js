@@ -22,7 +22,7 @@ router.get('/rec-content', jwtAuth, (req, res) => {
 	Topic.find({})
 	.then(topics => {
 		_topics = topics;
-		Content.find({})
+		Content.find({}).populate('related_topic')
 		.then(content => {
 			_content = content;
 			User.findOne({username: req.user.username}).populate({
