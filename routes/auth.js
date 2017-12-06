@@ -22,4 +22,10 @@ router.post('/login', localAuth, (req, res) => {
 	res.json({authToken});
 });
 
+/* POST refresh token */
+router.post('/refresh', jwtAuth, (req, res) => {
+	const authToken = createToken(req.user);
+	res.json({authToken});
+});
+
 module.exports = router;
