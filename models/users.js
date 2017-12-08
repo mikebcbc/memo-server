@@ -9,7 +9,8 @@ const userSchema = mongoose.Schema({
 	content: [{
 		contentId: {type: mongoose.Schema.Types.ObjectId, ref: 'Content'},
 		time: Number,
-		completed: Boolean
+		completed: Boolean,
+		_id: false
 	}]
 });
 

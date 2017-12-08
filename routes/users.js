@@ -39,11 +39,11 @@ router.post('/content', [jsonParser, jwtAuth], (req, res) => {
   User.findOne({username: req.user.username})
   .then(user => {
   	const doesMatch = user.content.findIndex((content) => {
-  		return content.contentId == req.body.contentId;
+  		return content.contentId == req.body.content;
   	});
   	if (doesMatch != -1) {
-  		user.content[doesMatch].time += req.body.time;
-      user.content[doesMatch].completed == req.body.completed
+  		user.content[doesMatch].time += +req.body.time;
+      user.content[doesMatch].completed = req.body.completed;
   	} else {
   		const newContent = {
   			"contentId": req.body.content,

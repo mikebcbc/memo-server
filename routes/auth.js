@@ -43,7 +43,6 @@ router.post('/register', (req, res) => {
 			});
 		})
 		.then(user => {
-			console.log(user);
       const authToken = createToken(user.apiRepr());
 			return res.json({authToken});
 		})
