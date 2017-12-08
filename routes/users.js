@@ -20,40 +20,6 @@ router.get('/', jwtAuth, (req, res) => {
   });
 });
 
-/* POST new user */
-router.post('/register', jsonParser, (req, res) => {
-	let {username, password} = req.body;
-
-	return User.find({username})
-		.count()
-		.then(count => {
-			if (count > 0) {
-				return Promise.reject({
-					code: 422,
-					reason: 'Validation Error',
-					message: 'Username is already taken'
-				});
-			}
-			return User.hashPassword(password);
-		})
-		.then(hash => {
-			return User.create({
-				username,
-				password: hash,
-				content: []
-			});
-		})
-		.then(user => {
-			return res.status(201).json(user.apiRepr());
-		})
-		.catch(err => {
-      if (err.reason === 'ValidationError') {
-        return res.status(err.code).json(err);
-      }
-      res.status(500).json({code: 500, message: 'Internal server error'});
-    });
-});
-
 /* GET completed content */
 router.get('/completed-content', jwtAuth, (req, res) => {
   User.findOne({username: req.user.username}).populate({
@@ -77,10 +43,12 @@ router.post('/content', [jsonParser, jwtAuth], (req, res) => {
   	});
   	if (doesMatch != -1) {
   		user.content[doesMatch].time += req.body.time;
+      user.content[doesMatch].completed == req.body.completed
   	} else {
   		const newContent = {
-  			"contentId": req.body.contentId,
-  			"time": req.body.time
+  			"contentId": req.body.content,
+  			"time": req.body.time,
+        "completed": req.body.completed
   		}
   		user.content.push(newContent);
   	}
