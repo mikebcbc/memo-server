@@ -23,6 +23,13 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
+* Socket.io connection
+*/
+
+const io = app.io;
+io.attach(server);
+
+/**
 * Connect to DB and listen on port.
 */
 mongoose.connect(process.env.DATABASE_URL || 'mongodb://localhost/memo', err => {

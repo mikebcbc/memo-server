@@ -14,9 +14,15 @@ const {localStrategy, jwtStrategy} = require('./auth/strategies.js');
 
 const app = express();
 
+const io  = app.io = require("socket.io")();
+
+io.on("connection", (socket) => {
+	console.log('yupp');
+})
+
 mongoose.Promise = global.Promise;
 
-app.use(cors());
+app.use(cors({origin: 'localhost:8000/test.html'}));
 
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
