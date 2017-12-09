@@ -5,29 +5,32 @@ const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const jwtSocket = require('socketio-jwt-auth');
+
+const app = express();
+const io  = app.io = require("socket.io")();
+app.set('io', io);
 
 const stats = require('./routes/stats');
-const users = require('./routes/users');
+const users = require('./routes/users')(io);
 const auth = require('./routes/auth');
 const contents = require('./routes/contents');
 const {localStrategy, jwtStrategy} = require('./auth/strategies.js');
 
-const app = express();
-
-const io  = app.io = require("socket.io")();
+io.use(jwtSocket.authenticate({secret: process.env.JWT_SECRET}, (payload, done) => done(null, payload.user)));
 
 io.on("connection", (socket) => {
-	console.log('yupp');
+	socket.join(socket.request.user.username);
 })
 
 mongoose.Promise = global.Promise;
 
-app.use(cors({origin: 'localhost:8000/test.html'}));
+app.use(cors());
 
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
-  indentedSyntax: false, // true = .sass and false = .scss
+  indentedSyntax: false,
   sourceMap: true
 }));
 
