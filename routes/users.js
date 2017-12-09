@@ -32,7 +32,7 @@ router.get('/completed-content', jwtAuth, (req, res) => {
     const completed = user.content.filter((content) => content.completed);
     res.send(completed);
   })
-})
+});
 
 /* POST new user-specific content */
 router.post('/content', [jsonParser, jwtAuth], (req, res) => {

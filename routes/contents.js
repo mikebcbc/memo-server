@@ -9,7 +9,7 @@ const {Topic} = require('../models/topics');
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 /* GET content listing. */
-router.get('/', jwtAuth, (req, res) => {
+router.get('/', (req, res) => {
   Content.find().populate('related_topic').then(content => {
   	res.json(content);
   });
