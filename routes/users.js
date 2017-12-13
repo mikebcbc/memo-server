@@ -54,7 +54,6 @@ const userRouter = (io) => {
     		user.content[doesMatch].time += +req.body.time;
         user.content[doesMatch].completed = req.body.completed;
         newContent = user.content[doesMatch];
-        timeChange = req.body.time;
         user.save(function(err, user) {
           if (err) {
             return res.status(400).send(`Bad request: ${err.message}`);
@@ -90,9 +89,9 @@ const userRouter = (io) => {
     })
     .then(user => {
       const content = user.content.find((content) => {
-        return content.contentId == req.params.contentId;
+        return content.contentId._id == req.params.contentId;
       });
-      io.to(req.user.username).emit('reloadState', user);
+      io.to(req.user.username).emit('reloadState', content);
       res.end();
     });
   });
