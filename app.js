@@ -25,7 +25,10 @@ io.on("connection", (socket) => {
 
 mongoose.Promise = global.Promise;
 
-app.use(cors());
+app.use(cors({
+	origin: 'http://localhost:3000',
+	optionsSuccessStatus: 200
+}));
 
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
