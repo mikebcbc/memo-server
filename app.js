@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
 mongoose.Promise = global.Promise;
 
 app.use(cors({
-	origin: 'http://localhost:3000',
+	origin: 'http://memoapp.netlify.com',
 	optionsSuccessStatus: 200
 }));
 
