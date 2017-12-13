@@ -25,10 +25,15 @@ io.on("connection", (socket) => {
 
 mongoose.Promise = global.Promise;
 
-app.use(cors({
-	origin: 'http://memoapp.netlify.com',
-	optionsSuccessStatus: 200
-}));
+app.use(cors([
+	{
+		origin: 'http://memoapp.netlify.com',
+		optionsSuccessStatus: 200
+	},
+	{
+		origin: 'http://localhost:3000',
+		optionsSuccessStatus: 200
+	}]));
 
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
